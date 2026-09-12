@@ -1,0 +1,78 @@
+.shell {
+  position: relative;
+  min-height: 100vh;
+  background: var(--bg-base);
+  overflow: hidden;
+}
+
+/* ── Decorative background ── */
+.shell__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.shell__bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.28;
+}
+
+.shell__bg-orb--1 {
+  width: 560px;
+  height: 560px;
+  background: radial-gradient(circle, var(--amber) 0%, transparent 70%);
+  top: -18%;
+  right: -12%;
+  animation: shell-drift 14s ease-in-out infinite alternate;
+}
+
+.shell__bg-orb--2 {
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, var(--amber-deep) 0%, transparent 70%);
+  bottom: -14%;
+  left: -10%;
+  animation: shell-drift 18s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes shell-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(40px, -30px) scale(1.06); }
+}
+
+/* ── Layout ── */
+.shell__layout {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 100vh;
+}
+
+.shell__main {
+  flex: 1;
+  min-width: 0;
+}
+
+.shell__content {
+  width: min(1200px, 100% - 3rem);
+  margin-inline: auto;
+  padding-block: 3rem 4rem;
+}
+
+/* ── Responsive (sidebar vira barra superior) ── */
+@media (max-width: 860px) {
+  .shell__layout {
+    flex-direction: column;
+  }
+
+  .shell__content {
+    padding-block: 2rem 3rem;
+    width: min(100% - 2rem, 720px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shell__bg-orb { animation: none; }
+}

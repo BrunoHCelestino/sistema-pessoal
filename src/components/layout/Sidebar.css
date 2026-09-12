@@ -1,0 +1,214 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+  width: 240px;
+  flex-shrink: 0;
+  padding: 1.75rem 1.25rem;
+  border-right: 1px solid var(--glass-border);
+  background: var(--nav-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(120%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(120%);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.sidebar__logo {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  width: max-content;
+}
+
+.sidebar__logo-bracket {
+  color: var(--amber);
+  margin-inline: 1px;
+}
+
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+  transition: color var(--dur-fast),
+              background var(--dur-fast),
+              border-color var(--dur-fast),
+              transform var(--dur-fast) var(--ease-out);
+}
+
+.sidebar__link:hover {
+  color: var(--amber-light);
+  background: var(--amber-glow);
+  transform: translateX(3px);
+}
+
+.sidebar__link--active {
+  color: var(--amber-light);
+  background: var(--amber-glow);
+  border-color: var(--glass-border-hover);
+}
+
+.sidebar__link-icon {
+  display: flex;
+  align-items: center;
+  color: var(--amber);
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.sidebar__link-label {
+  min-width: 0;
+}
+
+.sidebar__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding-inline: 6px;
+  border-radius: 9999px;
+  background: var(--amber);
+  color: #080b0f;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  margin-inline-start: auto;
+  animation: sidebar-badge-pop 0.25s var(--ease-spring);
+}
+
+@keyframes sidebar-badge-pop {
+  0% { transform: scale(0.4); }
+  100% { transform: scale(1); }
+}
+
+.sidebar__footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding-block-start: 1.25rem;
+  border-top: 1px solid var(--glass-border);
+}
+
+.sidebar__action {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  width: 100%;
+  text-align: left;
+  border: 1px solid transparent;
+  transition: color var(--dur-fast),
+              background var(--dur-fast),
+              border-color var(--dur-fast);
+}
+
+.sidebar__action:hover {
+  color: var(--amber-light);
+  background: var(--amber-glow);
+  border-color: var(--glass-border-hover);
+}
+
+.sidebar__action--danger:hover {
+  color: var(--error);
+  background: var(--error-glow);
+  border-color: var(--error-border);
+}
+
+.sidebar__action-icon {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+/* ── Responsive: barra superior ── */
+@media (max-width: 860px) {
+  .sidebar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    border-right: none;
+    border-bottom: 1px solid var(--glass-border);
+    z-index: 20;
+  }
+
+  .sidebar__logo { font-size: 1.1rem; }
+
+  .sidebar__nav {
+    flex-direction: row;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .sidebar__link {
+    position: relative;
+    padding: 0.55rem 0.75rem;
+  }
+
+  .sidebar__link:hover {
+    transform: none;
+  }
+
+  .sidebar__link-label { display: none; }
+
+  .sidebar__link-icon {
+    font-size: 1rem;
+  }
+
+  .sidebar__badge {
+    position: absolute;
+    top: 6px;
+    right: 4px;
+    min-width: 16px;
+    height: 16px;
+    padding-inline: 4px;
+    font-size: 0.6rem;
+    border: 1px solid var(--bg-base);
+  }
+
+  .sidebar__footer {
+    flex-direction: row;
+    gap: 0.35rem;
+    border-top: none;
+    padding: 0;
+  }
+
+  .sidebar__action {
+    width: auto;
+    padding: 0.55rem 0.75rem;
+  }
+
+  .sidebar__action-label { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar__badge { animation: none; }
+}
