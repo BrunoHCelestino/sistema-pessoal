@@ -1,0 +1,251 @@
+.login {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-base);
+  overflow: hidden;
+}
+
+/* ── Decorative background ── */
+.login__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.login__bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.35;
+}
+
+.login__bg-orb--1 {
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, var(--amber) 0%, transparent 70%);
+  top: -15%;
+  right: -10%;
+  animation: login-drift 12s ease-in-out infinite alternate;
+}
+
+.login__bg-orb--2 {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, var(--amber-deep) 0%, transparent 70%);
+  bottom: -10%;
+  left: -8%;
+  animation: login-drift 10s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes login-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(30px, -20px) scale(1.08); }
+}
+
+/* ── Centered wrapper ── */
+.login__wrapper {
+  position: relative;
+  z-index: 1;
+  width: min(420px, 100% - 2.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* ── Header ── */
+.login__header {
+  text-align: center;
+}
+
+.login__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+  margin-block-end: 0.75rem;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.login__tag::before {
+  content: '//';
+  color: var(--amber);
+  font-weight: 600;
+}
+
+.login__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.85rem, 4.5vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+  color: var(--text-primary);
+  margin-block-end: 1.25rem;
+}
+
+.login__divider {
+  width: 48px;
+  height: 2px;
+  background: var(--amber);
+  margin-inline: auto;
+  border-radius: 1px;
+}
+
+/* ── Form card ── */
+.login__form {
+  width: 100%;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  box-shadow: var(--glass-shadow);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(120%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(120%);
+}
+
+.login__form--error {
+  border-color: var(--error-border);
+  box-shadow: var(--glass-shadow), 0 0 0 1px var(--error-border), 0 0 24px -12px var(--error-glow);
+}
+
+/* ── Field group ── */
+.login__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.login__label {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+.login__input {
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  transition: border-color var(--dur-fast),
+              box-shadow var(--dur-fast),
+              background var(--dur-fast);
+  outline: none;
+  width: 100%;
+}
+
+.login__input::placeholder { color: var(--text-muted); }
+
+.login__input:focus {
+  border-color: var(--amber);
+  background: var(--input-bg-focus);
+  box-shadow: 0 0 0 2px var(--amber-glow);
+}
+
+/* ── Remember me ── */
+.login__remember {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  align-self: flex-start;
+}
+
+.login__checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.login__checkmark {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--border);
+  border-radius: 5px;
+  background: var(--input-bg);
+  transition: border-color var(--dur-fast),
+              background var(--dur-fast),
+              box-shadow var(--dur-fast);
+  flex-shrink: 0;
+}
+
+.login__checkmark::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 5.5px;
+  width: 5px;
+  height: 9px;
+  border: solid var(--bg-base);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform 0.15s var(--ease-spring);
+}
+
+.login__checkbox:checked + .login__checkmark {
+  border-color: var(--amber);
+  background: var(--amber);
+}
+
+.login__checkbox:checked + .login__checkmark::after {
+  transform: rotate(45deg) scale(1);
+}
+
+.login__checkbox:focus-visible + .login__checkmark {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.login__remember-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* ── Feedback ── */
+.login__error {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--error);
+  border: 1px solid var(--error-border);
+  background: var(--error-glow);
+  border-radius: 8px;
+  padding: 0.6rem 0.85rem;
+}
+
+/* ── Submit button ── */
+.login__btn {
+  margin-block-start: 0.35rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .login__form {
+    padding: 2rem 1.5rem;
+  }
+
+  .login__bg-orb--1 { width: 300px; height: 300px; }
+  .login__bg-orb--2 { width: 220px; height: 220px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login__bg-orb { animation: none; }
+  .login__checkmark::after { transition: none; }
+}
