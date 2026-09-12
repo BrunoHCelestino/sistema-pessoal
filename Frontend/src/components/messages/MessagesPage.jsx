@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react';
-import { AnimatePresence } from 'framer-motion';
 import { FaSearch, FaSyncAlt } from 'react-icons/fa';
 import { useMessages } from '../../hooks/useMessages.js';
 import { useInboxStore, visibleMessages } from '../../store/inboxStore.js';
@@ -146,42 +145,32 @@ export default function MessagesPage() {
             </div>
 
             <div className="messages__pane-wrap">
-              <AnimatePresence mode="wait">
-                {selected ? (
-                  <MotionDiv
-                    key={selected.id}
-                    className="messages__pane glass"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.22, ease: 'easeOut' }}
-                  >
-                    <MessagePane
-                      message={selected}
-                      isRead={Boolean(readIds[selected.id])}
-                      onToggleRead={() => setRead(selected.id, !readIds[selected.id])}
-                      onHide={() => {
-                        hide(selected.id);
-                        setSelectedId(null);
-                      }}
-                      onBack={() => setSelectedId(null)}
-                    />
-                  </MotionDiv>
-                ) : (
-                  <MotionDiv
-                    key="placeholder"
-                    className="messages__pane messages__pane--placeholder glass"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.18 }}
-                  >
-                    <span className="messages__pane-empty">
-                      Selecione uma mensagem para ler.
-                    </span>
-                  </MotionDiv>
-                )}
-              </AnimatePresence>
+              {selected ? (
+                <MotionDiv
+                  key={selected.id}
+                  className="messages__pane glass"
+                >
+                  <MessagePane
+                    message={selected}
+                    isRead={Boolean(readIds[selected.id])}
+                    onToggleRead={() => setRead(selected.id, !readIds[selected.id])}
+                    onHide={() => {
+                      hide(selected.id);
+                      setSelectedId(null);
+                    }}
+                    onBack={() => setSelectedId(null)}
+                  />
+                </MotionDiv>
+              ) : (
+                <MotionDiv
+                  key="placeholder"
+                  className="messages__pane messages__pane--placeholder glass"
+                >
+                  <span className="messages__pane-empty">
+                    Selecione uma mensagem para ler.
+                  </span>
+                </MotionDiv>
+              )}
             </div>
           </div>
         )}

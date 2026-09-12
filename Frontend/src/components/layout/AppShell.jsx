@@ -1,15 +1,9 @@
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar.jsx';
 import PageHeader from './PageHeader.jsx';
-import Login from '../auth/Login.jsx';
-import { useIsAuthenticated } from '../../store/authStore.js';
 import './AppShell.css';
 
 export default function AppShell() {
-  const isAuthenticated = useIsAuthenticated();
-
-  if (!isAuthenticated) return <Login />;
-
   return (
     <div className="shell">
       <div className="shell__backdrop" aria-hidden="true">
