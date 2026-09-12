@@ -1,34 +1,36 @@
-import { HashRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom';
-import { useIsAuthenticated } from './store/authStore.js';
-import Login from './components/auth/Login.jsx';
+import { Suspense, lazy } from 'react';
+import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import AppShell from './components/layout/AppShell.jsx';
-import Dashboard from './components/dashboard/Dashboard.jsx';
-import MessagesPage from './components/messages/MessagesPage.jsx';
 
-function ProtectedRoute() {
-  const isAuthenticated = useIsAuthenticated();
-  if (!isAuthenticated) return <Navigate to="/login" replace />;
-  return <Outlet />;
-}
+const Dashboard = lazy(() => import('./components/dashboard/Dashboard.jsx'));
+const MessagesPage = lazy(() => import('./components/messages/MessagesPage.jsx'));
 
-function PublicOnlyRoute() {
-  const isAuthenticated = useIsAuthenticated();
-  if (isAuthenticated) return <Navigate to="/" replace />;
-  return <Outlet />;
+function RouteFallback() {
+  return <div className="route-fallback">Carregando…</div>;
 }
 
 export default function App() {
   return (
     <HashRouter>
       <Routes>
-        <Route element={<PublicOnlyRoute />}>
-          <Route path="/login" element={<Login />} />
-        </Route>
-        <Route element={<ProtectedRoute />}>
-          <Route element={<AppShell />}>
-            <Route index element={<Dashboard />} />
-            <Route path="mensagens" element={<MessagesPage />} />
-          </Route>
+        <Route path="/login" element={<Navigate to="/" replace />} />
+        <Route element={<AppShell />}>
+          <Route
+            index
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <Dashboard />
+              </Suspense>
+            }
+          />
+          <Route
+            path="mensagens"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <MessagesPage />
+              </Suspense>
+            }
+          />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

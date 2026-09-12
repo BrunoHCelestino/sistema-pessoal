@@ -28,7 +28,6 @@
   background: radial-gradient(circle, var(--amber) 0%, transparent 70%);
   top: -15%;
   right: -10%;
-  animation: login-drift 12s ease-in-out infinite alternate;
 }
 
 .login__bg-orb--2 {
@@ -37,12 +36,6 @@
   background: radial-gradient(circle, var(--amber-deep) 0%, transparent 70%);
   bottom: -10%;
   left: -8%;
-  animation: login-drift 10s ease-in-out infinite alternate-reverse;
-}
-
-@keyframes login-drift {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(30px, -20px) scale(1.08); }
 }
 
 /* ── Centered wrapper ── */
@@ -246,6 +239,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .login__bg-orb { animation: none; }
   .login__checkmark::after { transition: none; }
 }

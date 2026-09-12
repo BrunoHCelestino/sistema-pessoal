@@ -7,12 +7,9 @@
     <meta name="description" content="Sistema pessoal de Bruno Celestino" />
     <script>
       (function () {
-        var stored = localStorage.getItem('theme');
-        var theme = stored === 'light' || stored === 'dark' ? stored : 'dark';
-        document.documentElement.setAttribute('data-theme', theme);
         var meta = document.createElement('meta');
         meta.name = 'theme-color';
-        meta.content = theme === 'light' ? '#f4f2ef' : '#0b0f14';
+        meta.content = '#0a0e14';
         document.head.appendChild(meta);
       })();
     </script>

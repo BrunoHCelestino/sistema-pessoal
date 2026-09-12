@@ -15,7 +15,7 @@
   gap: 1rem;
   flex-wrap: wrap;
   padding: 0.8rem 0.9rem;
-  border-radius: 14px;
+  border-radius: var(--card-radius);
 }
 
 .messages__search {
@@ -103,7 +103,7 @@
 }
 
 .messages__list {
-  border-radius: 14px;
+  border-radius: var(--card-radius);
   max-height: calc(100vh - 250px);
   overflow-y: auto;
   display: flex;
@@ -241,7 +241,7 @@
 }
 
 .messages__pane {
-  border-radius: 14px;
+  border-radius: var(--card-radius);
   padding: 1.6rem 1.7rem;
   min-height: 100%;
   min-height: 420px;
