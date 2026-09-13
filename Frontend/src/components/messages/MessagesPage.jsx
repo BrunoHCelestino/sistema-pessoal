@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { FaSearch, FaSyncAlt } from 'react-icons/fa';
+import { FaSearch, FaSortAmountDown, FaSyncAlt, FaChevronDown } from 'react-icons/fa';
 import { useMessages } from '../../hooks/useMessages.js';
 import { useInboxStore, visibleMessages } from '../../store/inboxStore.js';
 import MessageList from './MessageList.jsx';
@@ -18,15 +18,28 @@ export default function MessagesPage() {
 
   const [selectedId, setSelectedId] = useState(null);
   const [search, setSearch] = useState('');
+  const [sort, setSort] = useState('newest');
   const [refreshing, setRefreshing] = useState(false);
 
-  const messages = useMemo(
-    () =>
-      visibleMessages(data, hiddenIds).sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-      ),
-    [data, hiddenIds]
-  );
+  const messages = useMemo(() => {
+    const list = visibleMessages(data, hiddenIds);
+    return [...list].sort((a, b) => {
+      switch (sort) {
+        case 'name-asc':
+          return String(a.name ?? '').localeCompare(String(b.name ?? ''), 'pt-BR', {
+            sensitivity: 'base',
+          });
+        case 'name-desc':
+          return String(b.name ?? '').localeCompare(String(a.name ?? ''), 'pt-BR', {
+            sensitivity: 'base',
+          });
+        case 'oldest':
+          return new Date(a.createdAt) - new Date(b.createdAt);
+        default:
+          return new Date(b.createdAt) - new Date(a.createdAt);
+      }
+    });
+  }, [data, hiddenIds, sort]);
 
   const filtered = useMemo(() => {
     const term = search.trim().toLowerCase();
@@ -83,6 +96,21 @@ export default function MessagesPage() {
               onChange={(e) => setSearch(e.target.value)}
               aria-label="Buscar mensagens"
             />
+          </div>
+          <div className="messages__sort">
+            <FaSortAmountDown className="messages__sort-icon" aria-hidden="true" />
+            <select
+              className="messages__sort-select"
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
+              aria-label="Ordenar mensagens"
+            >
+              <option value="newest">Mais recentes</option>
+              <option value="oldest">Mais antigos</option>
+              <option value="name-asc">A – Z</option>
+              <option value="name-desc">Z – A</option>
+            </select>
+            <FaChevronDown className="messages__sort-chevron" aria-hidden="true" />
           </div>
           <div className="messages__toolbar-right">
             <span className="messages__stats">

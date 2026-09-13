@@ -57,6 +57,62 @@
   box-shadow: 0 0 0 2px var(--amber-glow);
 }
 
+.messages__sort {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.messages__sort-icon {
+  position: absolute;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.messages__sort-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.6rem 2.2rem 0.6rem 2.35rem;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--dur-fast),
+              box-shadow var(--dur-fast),
+              background var(--dur-fast);
+}
+
+.messages__sort-select:focus {
+  border-color: var(--amber);
+  background: var(--input-bg-focus);
+  box-shadow: 0 0 0 2px var(--amber-glow);
+}
+
+.messages__sort-select option {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+.messages__sort-chevron {
+  position: absolute;
+  right: 0.7rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  pointer-events: none;
+}
+
 .messages__toolbar-right {
   display: flex;
   align-items: center;
